@@ -2,33 +2,53 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-  <script src="./script.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script src="./script.js"></script>
 	<title>Instamood</title>
 </head>
 <body ng-app="Instamood">
 	<div class="container" ng-controller="MainCtrl">
 		<div class="row">
 			<div class="login-btn btn" ng-hide="hasToken" ng-click="getInstaPics()">
-				  <a href="https://api.instagram.com/oauth/authorize/?client_id=8ae6b7dda3b340b588c0734820a6ed11&redirect_uri=http://localhost:8001&response_type=token" class="btn btn-info btn-lg btn-block">
-          <i class="fa fa-instagram"></i>
-            Log in with Instagram
-          </a>
+				<a href="https://api.instagram.com/oauth/authorize/?client_id=a7bd908bae034dba99aeabe745869d4b&redirect_uri=http://localhost:8000&response_type=token" class="btn btn-info btn-lg btn-block">
+					<i class="fa fa-instagram"></i>
+					Log in with Instagram
+				</a>
 			</div>
 			<div ng-show="hasToken">
-        <!-- challenge: make it so that you don't have to click this link for
-             the pictures the load -->
-				<a ng-click="getInstaPics()">Load pictures!</a>
-				<ul>
-          <!-- this loops through all your pictures -->
-					<li ng-repeat="pic in picArray track by $index">
-            {{ pic }} <!-- what should be here instead? -->
-					</li>
-				</ul>
-			</div>
-		</div>
+	        <!-- challenge: make it so that you don't have to click this link for
+	        the pictures the load -->
+	        <!-- <a ng-click="getInstaPics()">Load pictures!</a> -->
+	        <div class="heading"> 
+		        <h4 class="myTitle"> Emma's Instagram </h4>
+		        <p>Ego Score: {{ego_score}} </p>
+		        <p>Popularity: {{pop}} </p>
+		        <p>Active Days: {{a_day}} </p> 
+		        <p>Brevity: {{brevity}} </p>
+		        <p>Visibility Thirst: {{visibility}} </p>
+		        <p>Positivity: {{avg_pos}} </p> 
+	        </div>
+	        <ul>
+	        	<!-- this loops through all your pictures -->
+	        	<li ng-repeat="pic in picArray track by $index">
+	        		<div class="col-md-4 img-box">
+		        		<div class="pics"> 
+		        			<img class="one_pic" ng-src="{{pic.images.standard_resolution.url}}">
+		        		</div>
+		        		<div class="caption">
+		        			{{pic.caption.text}}
+		        		</div>
+		        		<div class="pos_score">
+							<p>Positivity Score: {{posArray[$index]}}</p>
+		        		</div>
+		        	</div>
+	        	</li>
+	        </ul>
+	    </div>
 	</div>
-	
+</div>
+
 </body>
 </html>
